@@ -810,6 +810,25 @@
                                     </div>
                                     
                                     <div>
+                                        <label class="block text-sm font-medium text-white mb-2">تصویر مطلب</label>
+                                        <div class="relative">
+                                            <input type="file" id="post-image" accept="image/*" class="hidden" onchange="handleImageUpload(this)">
+                                            <div id="image-upload-area" class="w-full px-4 py-8 glass-effect border-2 border-dashed border-white border-opacity-30 rounded-xl text-center cursor-pointer hover:border-opacity-50 transition-all duration-300" onclick="document.getElementById('post-image').click()">
+                                                <div id="upload-placeholder">
+                                                    <i class="fas fa-cloud-upload-alt text-white text-3xl mb-3"></i>
+                                                    <p class="text-white mb-2">کلیک کنید یا تصویر را بکشید</p>
+                                                    <p class="text-white opacity-75 text-sm">فرمت‌های مجاز: JPG, PNG, GIF</p>
+                                                </div>
+                                                <div id="image-preview" class="hidden">
+                                                    <img id="preview-img" class="max-w-full h-32 object-cover rounded-lg mx-auto mb-3">
+                                                    <p class="text-white text-sm">تصویر انتخاب شده</p>
+                                                    <button type="button" onclick="removeImage()" class="text-red-400 hover:text-red-300 text-sm mt-2 transition-colors duration-300">حذف تصویر</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
                                         <label class="block text-sm font-medium text-white mb-2">خلاصه مطلب</label>
                                         <textarea id="post-excerpt" rows="3" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required></textarea>
                                     </div>
@@ -981,6 +1000,12 @@
                         <span class="ml-4">⏱️ ${post.readTime}</span>
                         <span>👁️ ${post.views || 0} بازدید</span>
                     </div>
+                    ${post.image ? `
+                        <div class="relative mb-8 rounded-2xl overflow-hidden">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-64 md:h-80 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                        </div>
+                    ` : ''}
                     <div class="prose prose-lg max-w-none text-white leading-relaxed">
                         ${post.content.split('\n').map(paragraph => 
                             paragraph.trim() ? `<p class="mb-4">${paragraph}</p>` : ''
@@ -1029,7 +1054,7 @@
                             </div>
                             <h3 class="text-2xl font-semibold text-white mb-4">هنوز مطلبی منتشر نشده</h3>
                             <p class="text-white opacity-75 mb-8">اولین نفری باشید که مطلب جدید می‌نویسد!</p>
-                            <button onclick="showPage('admin')" class="btn-3d text-white px-8 py-3 rounded-xl font-medium hover:scale-105 transition-all duration-300 flex items-center justify-center mx-auto">
+                            <button onclick="checkAdminAccess()" class="btn-3d text-white px-8 py-3 rounded-xl font-medium hover:scale-105 transition-all duration-300 flex items-center justify-center mx-auto">
                                 <i class="fas fa-plus ml-2"></i>
                                 نوشتن مطلب جدید
                             </button>
@@ -1041,6 +1066,12 @@
             
             blogContainer.innerHTML = filteredPosts.map((post, index) => `
                 <article class="blog-card rounded-2xl overflow-hidden shadow-lg animate-bounce-in" style="animation-delay: ${index * 0.1}s;">
+                    ${post.image ? `
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                        </div>
+                    ` : ''}
                     <div class="p-8">
                         <div class="flex items-center justify-between mb-6">
                             <span class="px-4 py-2 text-sm font-medium rounded-full ${getCategoryColor(post.category)}">${getCategoryName(post.category)}</span>
@@ -1073,7 +1104,7 @@
                             </div>
                             <h3 class="text-xl font-semibold text-white mb-3">هنوز مطلبی منتشر نشده</h3>
                             <p class="text-white opacity-75 mb-6">برای مشاهده مطالب جدید منتظر بمانید</p>
-                            <button onclick="showPage('admin')" class="btn-3d text-white px-6 py-2 rounded-xl font-medium hover:scale-105 transition-all duration-300 flex items-center justify-center mx-auto">
+                            <button onclick="checkAdminAccess()" class="btn-3d text-white px-6 py-2 rounded-xl font-medium hover:scale-105 transition-all duration-300 flex items-center justify-center mx-auto">
                                 <i class="fas fa-edit ml-2"></i>
                                 نوشتن مطلب
                             </button>
@@ -1085,6 +1116,12 @@
             
             latestContainer.innerHTML = latest.map((post, index) => `
                 <article class="blog-card rounded-2xl overflow-hidden shadow-lg animate-bounce-in" style="animation-delay: ${index * 0.1}s;">
+                    ${post.image ? `
+                        <div class="relative h-40 overflow-hidden">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                        </div>
+                    ` : ''}
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-4">
                             <span class="px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(post.category)}">${getCategoryName(post.category)}</span>
@@ -1308,6 +1345,19 @@
                 document.getElementById('post-excerpt').value = post.excerpt;
                 document.getElementById('post-content').value = post.content;
                 
+                // Handle existing image
+                if (post.image) {
+                    const placeholder = document.getElementById('upload-placeholder');
+                    const preview = document.getElementById('image-preview');
+                    const previewImg = document.getElementById('preview-img');
+                    
+                    placeholder.classList.add('hidden');
+                    preview.classList.remove('hidden');
+                    previewImg.src = post.image;
+                } else {
+                    removeImage();
+                }
+                
                 // Change form to edit mode
                 const form = document.getElementById('new-post-form');
                 form.setAttribute('data-edit-id', postId);
@@ -1345,6 +1395,93 @@
                 }, 500);
             }, 3000);
         }
+
+        // Image handling functions
+        function handleImageUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification('حجم فایل نباید بیشتر از ۵ مگابایت باشد', 'error');
+                    input.value = '';
+                    return;
+                }
+                
+                // Check file type
+                if (!file.type.startsWith('image/')) {
+                    showNotification('لطفاً فقط فایل تصویری انتخاب کنید', 'error');
+                    input.value = '';
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const placeholder = document.getElementById('upload-placeholder');
+                    const preview = document.getElementById('image-preview');
+                    const previewImg = document.getElementById('preview-img');
+                    
+                    placeholder.classList.add('hidden');
+                    preview.classList.remove('hidden');
+                    previewImg.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function removeImage() {
+            const input = document.getElementById('post-image');
+            const placeholder = document.getElementById('upload-placeholder');
+            const preview = document.getElementById('image-preview');
+            
+            input.value = '';
+            placeholder.classList.remove('hidden');
+            preview.classList.add('hidden');
+        }
+        
+        // Drag and drop functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('image-upload-area');
+            
+            if (uploadArea) {
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    uploadArea.addEventListener(eventName, preventDefaults, false);
+                });
+                
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    uploadArea.addEventListener(eventName, highlight, false);
+                });
+                
+                ['dragleave', 'drop'].forEach(eventName => {
+                    uploadArea.addEventListener(eventName, unhighlight, false);
+                });
+                
+                function highlight(e) {
+                    uploadArea.classList.add('border-blue-400', 'bg-blue-50', 'bg-opacity-10');
+                }
+                
+                function unhighlight(e) {
+                    uploadArea.classList.remove('border-blue-400', 'bg-blue-50', 'bg-opacity-10');
+                }
+                
+                uploadArea.addEventListener('drop', handleDrop, false);
+                
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    
+                    if (files.length > 0) {
+                        const input = document.getElementById('post-image');
+                        input.files = files;
+                        handleImageUpload(input);
+                    }
+                }
+            }
+        });
 
         // Form handlers
         document.addEventListener('submit', function(e) {
@@ -1397,46 +1534,70 @@
                 const category = document.getElementById('post-category').value;
                 const excerpt = document.getElementById('post-excerpt').value;
                 const content = document.getElementById('post-content').value;
+                const imageInput = document.getElementById('post-image');
                 const editId = e.target.getAttribute('data-edit-id');
                 
-                if (editId) {
-                    // Update existing post
-                    const postIndex = blogPosts.findIndex(p => p.id == editId);
-                    if (postIndex !== -1) {
-                        blogPosts[postIndex] = {
-                            ...blogPosts[postIndex],
+                // Get image data
+                let imageData = null;
+                if (imageInput.files && imageInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imageData = e.target.result;
+                        savePost();
+                    };
+                    reader.readAsDataURL(imageInput.files[0]);
+                    return; // Wait for image to load
+                } else if (editId) {
+                    // Keep existing image for edit
+                    const existingPost = blogPosts.find(p => p.id == editId);
+                    imageData = existingPost ? existingPost.image : null;
+                }
+                
+                savePost();
+                
+                function savePost() {
+                    if (editId) {
+                        // Update existing post
+                        const postIndex = blogPosts.findIndex(p => p.id == editId);
+                        if (postIndex !== -1) {
+                            blogPosts[postIndex] = {
+                                ...blogPosts[postIndex],
+                                title,
+                                category,
+                                excerpt,
+                                content,
+                                image: imageData || blogPosts[postIndex].image
+                            };
+                        }
+                        e.target.removeAttribute('data-edit-id');
+                        e.target.querySelector('button[type="submit"]').textContent = 'انتشار مطلب';
+                        showNotification('مطلب با موفقیت بروزرسانی شد!', 'success');
+                    } else {
+                        // Add new post
+                        const newPost = {
+                            id: Date.now(),
                             title,
                             category,
                             excerpt,
-                            content
+                            content,
+                            image: imageData,
+                            date: new Date().toLocaleDateString('fa-IR'),
+                            readTime: Math.ceil(content.length / 200) + ' دقیقه',
+                            views: 0,
+                            createdAt: Date.now()
                         };
+                        blogPosts.unshift(newPost);
+                        showNotification('مطلب جدید با موفقیت منتشر شد!', 'success');
                     }
-                    e.target.removeAttribute('data-edit-id');
-                    e.target.querySelector('button[type="submit"]').textContent = 'انتشار مطلب';
-                    showNotification('مطلب با موفقیت بروزرسانی شد!', 'success');
-                } else {
-                    // Add new post
-                    const newPost = {
-                        id: Date.now(),
-                        title,
-                        category,
-                        excerpt,
-                        content,
-                        date: new Date().toLocaleDateString('fa-IR'),
-                        readTime: Math.ceil(content.length / 200) + ' دقیقه',
-                        views: 0,
-                        createdAt: Date.now()
-                    };
-                    blogPosts.unshift(newPost);
-                    showNotification('مطلب جدید با موفقیت منتشر شد!', 'success');
+                    
+                    // Save to localStorage
+                    BlogStorage.save(blogPosts);
+                    
+                    // Reset form and image preview
+                    e.target.reset();
+                    removeImage();
+                    loadAdminPosts();
                 }
-                
-                // Save to localStorage
-                BlogStorage.save(blogPosts);
-                
-                // Reset form
-                e.target.reset();
-                loadAdminPosts();
             }
         });
 
@@ -1492,5 +1653,5 @@
         `;
         document.head.appendChild(style);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9743574987d76933',t:'MTc1NjA0MzY2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9743c1803000cf58',t:'MTc1NjA0ODAxMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
