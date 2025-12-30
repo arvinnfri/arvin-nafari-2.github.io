@@ -1,1668 +1,698 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آروین نفری - دبیر ریاضی و مشاور کنکور</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'vazir': ['Vazir', 'sans-serif']
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                        'slide-up': 'slideUp 0.5s ease-out',
-                        'fade-in': 'fadeIn 0.8s ease-out',
-                        'bounce-in': 'bounceIn 0.6s ease-out',
-                        'rotate-3d': 'rotate3d 20s linear infinite',
-                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Vazir:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * { 
-            font-family: 'Vazir', sans-serif; 
-        }
-        
-        body {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #db2777 75%, #dc2626 100%);
-            background-attachment: fixed;
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
-            z-index: -1;
-        }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
-        }
-        
-        .card-3d {
-            transform-style: preserve-3d;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
-            background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 
-                0 20px 40px rgba(0,0,0,0.1),
-                inset 0 1px 0 rgba(255,255,255,0.6);
-        }
-        
-        .card-3d:hover {
-            transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
-            box-shadow: 
-                0 40px 80px rgba(0,0,0,0.2),
-                inset 0 1px 0 rgba(255,255,255,0.8);
-        }
-        
-        .btn-3d {
-            background: linear-gradient(145deg, #667eea, #764ba2);
-            box-shadow: 
-                0 10px 20px rgba(102, 126, 234, 0.3),
-                inset 0 1px 0 rgba(255,255,255,0.2);
-            transform: translateZ(0);
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-        
-        .btn-3d:hover {
-            transform: translateY(-5px) translateZ(10px);
-            box-shadow: 
-                0 20px 40px rgba(102, 126, 234, 0.4),
-                inset 0 1px 0 rgba(255,255,255,0.3);
-        }
-        
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .shape {
-            position: absolute;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border-radius: 50%;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        .shape:nth-child(1) { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s; }
-        .shape:nth-child(2) { width: 120px; height: 120px; top: 60%; left: 80%; animation-delay: 2s; }
-        .shape:nth-child(3) { width: 60px; height: 60px; top: 80%; left: 20%; animation-delay: 4s; }
-        .shape:nth-child(4) { width: 100px; height: 100px; top: 30%; left: 70%; animation-delay: 6s; }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
-        }
-        
-        @keyframes glow {
-            from { box-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
-            to { box-shadow: 0 0 40px rgba(102, 126, 234, 0.8); }
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes rotate3d {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
-                transform: scale(1.05);
-            }
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        
-        .nav-glass {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .hero-3d {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-3d::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-        }
-        
-        .blog-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-        
-        .blog-card:hover {
-            transform: translateY(-15px) rotateX(2deg);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-        }
-        
-        .page-transition {
-            animation: fadeIn 0.8s ease-out;
-        }
-        
-        .loading-spinner {
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .text-shadow-3d {
-            text-shadow: 
-                0 1px 0 rgba(255,255,255,0.8),
-                0 2px 4px rgba(0,0,0,0.1),
-                0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        /* Dark dropdown options */
-        select {
-            color-scheme: dark;
-        }
-        
-        select option {
-            background-color: #1f2937 !important;
-            color: white !important;
-            padding: 8px !important;
-        }
-        
-        select:focus option {
-            background-color: #374151 !important;
-        }
-        
-        select option:hover {
-            background-color: #4b5563 !important;
-        }
-    </style>
+    <title>استاد رضا زین‌الدینی | حفظ کل قرآن در 100 جلسه</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
+
 <body>
-    <!-- Floating Background Shapes -->
-    <div class="floating-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-quran"></i>
+            <div class="loading-text">در حال بارگذاری...</div>
+        </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="nav-glass sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center space-x-4 space-x-reverse">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full overflow-hidden shadow-lg animate-pulse-glow border-2 border-white/20">
-                        <img src="assets/profile.png" alt="آروین نفری" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center" style="display: none;">
-                            <i class="fas fa-user text-white text-lg"></i>
-                        </div>
-                    </div>
-                    <h1 class="text-2xl font-bold text-white text-shadow-3d">آروین نفری</h1>
-                </div>
-                <div class="hidden md:flex space-x-8 space-x-reverse">
-                    <a href="#" onclick="showPage('home')" class="nav-link text-white hover:text-yellow-300 font-medium transition-all duration-300 hover:scale-110">خانه</a>
-                    <a href="#" onclick="showPage('about')" class="nav-link text-white hover:text-yellow-300 font-medium transition-all duration-300 hover:scale-110">درباره من</a>
-                    <a href="#" onclick="showPage('services')" class="nav-link text-white hover:text-yellow-300 font-medium transition-all duration-300 hover:scale-110">خدمات</a>
-                    <a href="#" onclick="showPage('blog')" class="nav-link text-white hover:text-yellow-300 font-medium transition-all duration-300 hover:scale-110">وبلاگ</a>
-                    <a href="#" onclick="showPage('contact')" class="nav-link text-white hover:text-yellow-300 font-medium transition-all duration-300 hover:scale-110">تماس</a>
-                    <a href="#" onclick="checkAdminAccess()" class="nav-link text-white hover:text-yellow-300 font-medium transition-all duration-300 hover:scale-110">مدیریت</a>
-                </div>
-                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
+    <!-- Notification Bubble -->
+    <div class="notification-bubble" id="notificationBubble">
+        <i class="fas fa-comment-dots"></i>
+        <span>مشاوره رایگان!</span>
+    </div>
+
+    <!-- Header -->
+    <header class="animate__animated animate__fadeInDown">
+        <div class="container header-container">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="منو">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="logo">
+                <i class="fas fa-quran quran-icon animate__pulse animate__infinite animate__slower"></i>
+                <h1>استاد رضا زین‌الدینی</h1>
+            </div>
+
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home" class="nav-link">خانه</a></li>
+                    <li><a href="#about" class="nav-link">درباره استاد</a></li>
+                    <li><a href="#methods" class="nav-link">روش تدریس</a></li>
+                    <li><a href="#courses" class="nav-link">دوره‌ها</a></li>
+                    <li><a href="#testimonials" class="nav-link">شاگردان</a></li>
+                    <li><a href="#faq" class="nav-link">سوالات متداول</a></li>
+                    <li><a href="#contact" class="nav-link">ارتباط</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero animate__animated animate__fadeIn" id="home">
+        <div class="hero-particles"></div>
+        <div class="container">
+            <h2 class="animate__animated animate__fadeInUp">حفظ کل قرآن کریم با روش نوین تصویری</h2>
+            <div class="quran-verse quran-font animate__animated animate__fadeInUp animate__delay-1s">
+                ﴿ وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ ﴾
+            </div>
+            <p style="font-size: 1.3rem; max-width: 800px; margin: 0 auto;"
+                class="animate__animated animate__fadeInUp animate__delay-2s">
+                بیش از ده سال سابقه تدریس و آموزش ده‌ها حافظ کل قرآن کریم با روش منحصربه‌فرد حفظ پایه تصویری
+            </p>
+            <a href="#courses" class="cta-button animate__animated animate__pulse animate__delay-3s">
+                ثبت‌نام در دوره‌ها
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </section>
+
+<!-- About Section -->
+<section class="about" id="about">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>درباره استاد</h2>
+        </div>
+
+        <div class="about-content">
+            <!-- بنر در سمت چپ -->
+            <div class="simple-slider" data-aos="fade-right">
+                <!-- تصویر ۱ -->
+                <img src="images/banner-1.jpg" alt="استاد رضا زین‌الدینی - تصویر ۱" class="active">
+                
+                <!-- تصویر ۲ -->
+                <img src="images/banner-2.jpg" alt="استاد رضا زین‌الدینی - تصویر ۲">
+                
+                <!-- دکمه‌های ناوبری -->
+                <button class="prev" aria-label="تصویر قبلی">
+                    <i class="fas fa-chevron-right"></i>
                 </button>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden glass-effect border-t border-white border-opacity-20">
-            <div class="px-4 py-2 space-y-2">
-                <a href="#" onclick="showPage('home')" class="block py-2 text-white hover:text-yellow-300">خانه</a>
-                <a href="#" onclick="showPage('about')" class="block py-2 text-white hover:text-yellow-300">درباره من</a>
-                <a href="#" onclick="showPage('services')" class="block py-2 text-white hover:text-yellow-300">خدمات</a>
-                <a href="#" onclick="showPage('blog')" class="block py-2 text-white hover:text-yellow-300">وبلاگ</a>
-                <a href="#" onclick="showPage('contact')" class="block py-2 text-white hover:text-yellow-300">تماس</a>
-                <a href="#" onclick="checkAdminAccess()" class="block py-2 text-white hover:text-yellow-300">مدیریت</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Home Page -->
-        <div id="home-page" class="page page-transition">
-            <!-- Hero Section -->
-            <section class="hero-3d text-white py-32 relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent z-0"></div>
-                <div class="max-w-7xl mx-auto px-4 relative z-10">
-                    <div class="grid lg:grid-cols-2 gap-16 items-center">
-                        <div class="text-center lg:text-right">
-                            <div class="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8 animate-bounce-in">
-                                <i class="fas fa-star text-yellow-400 ml-2"></i>
-                                <span class="text-sm font-medium">بیش از ۱۰ سال تجربه موفق</span>
-                            </div>
-                            <h1 class="text-5xl lg:text-7xl font-bold mb-6 text-shadow-3d animate-slide-up leading-tight">
-                                آروین نفری
-                                <span class="block text-3xl lg:text-4xl text-blue-200 font-normal mt-2">دبیر ریاضی و مشاور کنکور</span>
-                            </h1>
-                            <p class="text-xl mb-10 max-w-2xl mx-auto lg:mx-0 opacity-90 animate-fade-in leading-relaxed">
-                                با روش‌های نوین تدریس و برنامه‌ریزی شخصی‌سازی شده، مسیر موفقیت شما در ریاضی و کنکور را هموار می‌کنم
-                            </p>
-                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-bounce-in">
-                                <button onclick="showPage('services')" class="btn-3d text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center">
-                                    <i class="fas fa-graduation-cap ml-2"></i>
-                                    مشاهده خدمات
-                                </button>
-                                <button onclick="showPage('contact')" class="glass-effect text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:bg-white/20 flex items-center justify-center">
-                                    <i class="fas fa-phone ml-2"></i>
-                                    تماس با من
-                                </button>
-                            </div>
-                        </div>
-                        <div class="relative animate-fade-in">
-                            <div class="relative w-80 h-80 mx-auto">
-                                <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-pulse-glow"></div>
-                                <div class="absolute inset-4 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 overflow-hidden">
-                                    <img src="assets/profile.png" alt="آروین نفری" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                    <div class="w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center" style="display: none;">
-                                        <i class="fas fa-user text-white text-6xl opacity-50"></i>
-                                    </div>
-                                </div>
-                                <div class="absolute -top-4 -right-4 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce">
-                                    <i class="fas fa-calculator text-yellow-900 text-2xl"></i>
-                                </div>
-                                <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-green-400 rounded-full flex items-center justify-center animate-bounce" style="animation-delay: 0.5s;">
-                                    <i class="fas fa-chart-line text-green-900 text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Features Section -->
-            <section class="py-20 relative">
-                <div class="max-w-7xl mx-auto px-4">
-                    <div class="text-center mb-20">
-                        <div class="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
-                            <i class="fas fa-award text-yellow-400 ml-2"></i>
-                            <span class="text-white text-sm font-medium">مزایای انتخاب ما</span>
-                        </div>
-                        <h2 class="text-4xl lg:text-5xl font-bold text-white text-shadow-3d animate-slide-up mb-4">چرا آروین نفری؟</h2>
-                        <p class="text-xl text-white/80 max-w-2xl mx-auto">ویژگی‌هایی که ما را از سایر مدرسان متمایز می‌کند</p>
-                    </div>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div class="group card-3d text-center p-8 rounded-2xl animate-bounce-in hover:scale-105 transition-all duration-500">
-                            <div class="relative mb-8">
-                                <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl mx-auto flex items-center justify-center animate-pulse-glow group-hover:rotate-12 transition-transform duration-500">
-                                    <i class="fas fa-book-open text-white text-3xl"></i>
-                                </div>
-                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-star text-yellow-900 text-sm"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-semibold mb-4 gradient-text">تجربه غنی</h3>
-                            <p class="text-gray-700 leading-relaxed">بیش از ۱۰ سال تجربه در تدریس ریاضی و آمادگی کنکور با رکورد موفقیت بالا</p>
-                            <div class="mt-6 flex justify-center">
-                                <div class="flex items-center bg-blue-50 rounded-full px-4 py-2">
-                                    <i class="fas fa-users text-blue-600 text-sm ml-2"></i>
-                                    <span class="text-blue-600 text-sm font-medium">500+ دانش‌آموز موفق</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="group card-3d text-center p-8 rounded-2xl animate-bounce-in hover:scale-105 transition-all duration-500" style="animation-delay: 0.2s;">
-                            <div class="relative mb-8">
-                                <div class="w-24 h-24 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl mx-auto flex items-center justify-center animate-pulse-glow group-hover:rotate-12 transition-transform duration-500">
-                                    <i class="fas fa-lightbulb text-white text-3xl"></i>
-                                </div>
-                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-rocket text-yellow-900 text-sm"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-semibold mb-4 gradient-text">روش‌های نوین</h3>
-                            <p class="text-gray-700 leading-relaxed">استفاده از جدیدترین روش‌های تدریس و تکنیک‌های یادگیری فعال و تعاملی</p>
-                            <div class="mt-6 flex justify-center">
-                                <div class="flex items-center bg-green-50 rounded-full px-4 py-2">
-                                    <i class="fas fa-brain text-green-600 text-sm ml-2"></i>
-                                    <span class="text-green-600 text-sm font-medium">یادگیری هوشمند</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="group card-3d text-center p-8 rounded-2xl animate-bounce-in hover:scale-105 transition-all duration-500" style="animation-delay: 0.4s;">
-                            <div class="relative mb-8">
-                                <div class="w-24 h-24 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl mx-auto flex items-center justify-center animate-pulse-glow group-hover:rotate-12 transition-transform duration-500">
-                                    <i class="fas fa-trophy text-white text-3xl"></i>
-                                </div>
-                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-medal text-yellow-900 text-sm"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-semibold mb-4 gradient-text">نتایج عالی</h3>
-                            <p class="text-gray-700 leading-relaxed">رکورد موفقیت بالا در قبولی دانشجویان در رشته‌های مطرح دانشگاه‌های برتر</p>
-                            <div class="mt-6 flex justify-center">
-                                <div class="flex items-center bg-purple-50 rounded-full px-4 py-2">
-                                    <i class="fas fa-percentage text-purple-600 text-sm ml-2"></i>
-                                    <span class="text-purple-600 text-sm font-medium">95% رضایت</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Latest Blog Posts -->
-            <section class="py-20">
-                <div class="max-w-7xl mx-auto px-4">
-                    <div class="flex justify-between items-center mb-16">
-                        <h2 class="text-4xl font-bold text-white text-shadow-3d">آخرین مطالب</h2>
-                        <button onclick="showPage('blog')" class="btn-3d text-white px-6 py-3 rounded-xl font-medium hover:scale-105 transition-all duration-300">مشاهده همه →</button>
-                    </div>
-                    <div id="latest-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Blog posts will be loaded here -->
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Blog Page -->
-        <div id="blog-page" class="page hidden page-transition">
-            <section class="py-20">
-                <div class="max-w-7xl mx-auto px-4">
-                    <div class="text-center mb-16">
-                        <h1 class="text-5xl font-bold mb-6 text-white text-shadow-3d animate-slide-up">وبلاگ آموزشی</h1>
-                        <p class="text-xl text-white opacity-90 max-w-2xl mx-auto animate-fade-in">مطالب آموزشی، نکات کنکور و راهنمایی‌های تحصیلی</p>
-                    </div>
-                    
-                    <div class="mb-12 animate-bounce-in">
-                        <div class="flex flex-wrap gap-4 justify-center">
-                            <button onclick="filterPosts('all')" class="filter-btn btn-3d text-white px-8 py-3 rounded-full transition-all duration-300 hover:scale-105">همه مطالب</button>
-                            <button onclick="filterPosts('math')" class="filter-btn glass-effect text-white px-8 py-3 rounded-full transition-all duration-300 hover:scale-105">ریاضی</button>
-                            <button onclick="filterPosts('konkur')" class="filter-btn glass-effect text-white px-8 py-3 rounded-full transition-all duration-300 hover:scale-105">کنکور</button>
-                            <button onclick="filterPosts('tips')" class="filter-btn glass-effect text-white px-8 py-3 rounded-full transition-all duration-300 hover:scale-105">نکات مطالعه</button>
-                        </div>
-                    </div>
-                    
-                    <div id="blog-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Blog posts will be loaded here -->
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Single Blog Post Page -->
-        <div id="single-post-page" class="page hidden page-transition">
-            <section class="py-20">
-                <div class="max-w-4xl mx-auto px-4">
-                    <button onclick="showPage('blog')" class="btn-3d text-white px-6 py-3 rounded-xl mb-8 hover:scale-105 transition-all duration-300">← بازگشت به وبلاگ</button>
-                    <div id="single-post-content" class="glass-effect rounded-2xl p-8">
-                        <!-- Single post content will be loaded here -->
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- About Page -->
-        <div id="about-page" class="page hidden page-transition">
-            <section class="py-20">
-                <div class="max-w-4xl mx-auto px-4">
-                    <div class="text-center mb-16">
-                        <h1 class="text-5xl font-bold mb-6 text-white text-shadow-3d animate-slide-up">درباره من</h1>
-                        <div class="relative w-40 h-40 mx-auto mb-8">
-                            <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-pulse-glow"></div>
-                            <div class="absolute inset-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 overflow-hidden">
-                                <img src="assets/profile.png" alt="آروین نفری" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <div class="w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center" style="display: none;">
-                                    <i class="fas fa-user text-white text-4xl opacity-50"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="glass-effect rounded-2xl p-8 mb-8 animate-fade-in">
-                        <p class="text-2xl mb-8 text-center text-white">سلام! من آروین نفری هستم، دبیر ریاضی و مشاور کنکور با بیش از ۱۰ سال تجربه.</p>
-                        
-                        <div class="grid md:grid-cols-2 gap-12 mb-12">
-                            <div class="card-3d p-6 rounded-xl">
-                                <h3 class="text-2xl font-semibold mb-4 gradient-text">تحصیلات</h3>
-                                <ul class="space-y-3 text-gray-700">
-                                    <li class="flex items-start">
-                                        <span class="text-blue-600 ml-2">•</span>
-                                        کارشناسی ارشد ریاضی کاربردی
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="text-blue-600 ml-2">•</span>
-                                        کارشناسی ریاضی محض
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="text-blue-600 ml-2">•</span>
-                                        دوره‌های تخصصی روان‌شناسی تربیتی
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div class="card-3d p-6 rounded-xl">
-                                <h3 class="text-2xl font-semibold mb-4 gradient-text">تخصص‌ها</h3>
-                                <ul class="space-y-3 text-gray-700">
-                                    <li class="flex items-start">
-                                        <span class="text-green-600 ml-2">•</span>
-                                        تدریس ریاضی دبیرستان
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="text-green-600 ml-2">•</span>
-                                        آمادگی کنکور ریاضی
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="text-green-600 ml-2">•</span>
-                                        مشاوره تحصیلی و انتخاب رشته
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card-3d p-8 rounded-xl mb-8">
-                            <h3 class="text-2xl font-semibold mb-4 gradient-text">فلسفه تدریس من</h3>
-                            <p class="mb-4 text-gray-700">من معتقدم که ریاضی نه تنها یک درس، بلکه ابزاری برای تقویت قدرت تفکر و حل مسئله است. هدف من این است که دانش‌آموزان نه تنها مفاهیم ریاضی را یاد بگیرند، بلکه عاشق این علم زیبا شوند.</p>
-                            <p class="text-gray-700">با استفاده از روش‌های نوین تدریس و تکنیک‌های یادگیری فعال، سعی می‌کنم فضایی شاد و پویا برای یادگیری ایجاد کنم.</p>
-                        </div>
-                        
-                        <div class="grid md:grid-cols-3 gap-6 text-center">
-                            <div class="card-3d p-6 rounded-xl">
-                                <div class="text-4xl font-bold gradient-text mb-2">500+</div>
-                                <div class="text-gray-700">دانش‌آموز موفق</div>
-                            </div>
-                            <div class="card-3d p-6 rounded-xl">
-                                <div class="text-4xl font-bold gradient-text mb-2">10+</div>
-                                <div class="text-gray-700">سال تجربه</div>
-                            </div>
-                            <div class="card-3d p-6 rounded-xl">
-                                <div class="text-4xl font-bold gradient-text mb-2">95%</div>
-                                <div class="text-gray-700">رضایت والدین</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Services Page -->
-        <div id="services-page" class="page hidden page-transition">
-            <section class="py-20">
-                <div class="max-w-7xl mx-auto px-4">
-                    <div class="text-center mb-16">
-                        <h1 class="text-5xl font-bold mb-6 text-white text-shadow-3d animate-slide-up">خدمات آموزشی</h1>
-                        <p class="text-xl text-white opacity-90 max-w-2xl mx-auto animate-fade-in">مجموعه کاملی از خدمات آموزشی برای موفقیت شما در ریاضی و کنکور</p>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div class="group card-3d p-8 rounded-2xl animate-bounce-in hover:scale-105 transition-all duration-500 border border-white/10">
-                            <div class="relative mb-6">
-                                <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center animate-pulse-glow group-hover:rotate-12 transition-transform duration-500">
-                                    <i class="fas fa-user-graduate text-white text-2xl"></i>
-                                </div>
-                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-crown text-yellow-900 text-sm"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-semibold mb-4 gradient-text">کلاس‌های خصوصی</h3>
-                            <p class="text-gray-700 mb-6 leading-relaxed">تدریس خصوصی ریاضی با برنامه‌ریزی شخصی‌سازی شده و توجه کامل به نیازهای فردی</p>
-                            <ul class="space-y-3 mb-6">
-                                <li class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                                    برنامه‌ریزی شخصی
-                                </li>
-                                <li class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                                    تدریس حضوری و آنلاین
-                                </li>
-                                <li class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                                    جزوات اختصاصی
-                                </li>
-                            </ul>
-                            <div class="flex items-center justify-between mb-6">
-                                <div class="text-3xl font-bold gradient-text">از ۲۰۰,۰۰۰ تومان</div>
-                                <div class="flex items-center bg-blue-50 rounded-full px-3 py-1">
-                                    <i class="fas fa-star text-yellow-500 text-sm ml-1"></i>
-                                    <span class="text-blue-600 text-sm font-medium">محبوب</span>
-                                </div>
-                            </div>
-                            <button onclick="showPage('contact')" class="w-full btn-3d text-white py-3 rounded-xl transition-all duration-300 hover:scale-105 flex items-center justify-center">
-                                <i class="fas fa-phone ml-2"></i>
-                                درخواست مشاوره
-                            </button>
-                        </div>
-                        
-                        <div class="group card-3d p-8 rounded-2xl animate-bounce-in hover:scale-105 transition-all duration-500 border border-white/10" style="animation-delay: 0.2s;">
-                            <div class="relative mb-6">
-                                <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center animate-pulse-glow group-hover:rotate-12 transition-transform duration-500">
-                                    <i class="fas fa-users text-white text-2xl"></i>
-                                </div>
-                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-handshake text-green-900 text-sm"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-semibold mb-4 gradient-text">کلاس‌های گروهی</h3>
-                            <p class="text-gray-700 mb-6 leading-relaxed">کلاس‌های کوچک با حداکثر ۶ نفر دانش‌آموز برای یادگیری تعاملی و مؤثر</p>
-                            <ul class="space-y-3 mb-6">
-                                <li class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                                    گروه‌های همسطح
-                                </li>
-                                <li class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                                    تعامل بیشتر
-                                </li>
-                                <li class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                                    هزینه مقرون‌به‌صرفه
-                                </li>
-                            </ul>
-                            <div class="flex items-center justify-between mb-6">
-                                <div class="text-3xl font-bold gradient-text">از ۱۰۰,۰۰۰ تومان</div>
-                                <div class="flex items-center bg-green-50 rounded-full px-3 py-1">
-                                    <i class="fas fa-dollar-sign text-green-600 text-sm ml-1"></i>
-                                    <span class="text-green-600 text-sm font-medium">اقتصادی</span>
-                                </div>
-                            </div>
-                            <button onclick="showPage('contact')" class="w-full btn-3d text-white py-3 rounded-xl transition-all duration-300 hover:scale-105 flex items-center justify-center">
-                                <i class="fas fa-user-plus ml-2"></i>
-                                ثبت‌نام
-                            </button>
-                        </div>
-                        
-                        <div class="group card-3d p-8 rounded-2xl animate-bounce-in hover:scale-105 transition-all duration-500 border border-white/10" style="animation-delay: 0.4s;">
-                            <div class="relative mb-6">
-                                <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center animate-pulse-glow group-hover:rotate-12 transition-transform duration-500">
-                                    <i class="fas fa-bullseye text-white text-2xl"></i>
-                                </div>
-                                <div class="absolute -top-2 -right-2 w-8 h-8 bg-red-400 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-fire text-red-900 text-sm"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-semibold mb-4 gradient-text">آمادگی کنکور</h3>
-                            <p class="text-gray-700 mb-6 leading-relaxed">برنامه جامع و تخصصی آمادگی برای کنکور ریاضی با تضمین نتیجه</p>
-                            <ul class="space-y-3 mb-6">
-                                <li class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                                    آزمون‌های آزمایشی
-                                </li>
-                                <li class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                                    تحلیل نقاط ضعف
-                                </li>
-                                <li class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
-                                    برنامه مطالعاتی
-                                </li>
-                            </ul>
-                            <div class="flex items-center justify-between mb-6">
-                                <div class="text-3xl font-bold gradient-text">از ۳۰۰,۰۰۰ تومان</div>
-                                <div class="flex items-center bg-purple-50 rounded-full px-3 py-1">
-                                    <i class="fas fa-medal text-purple-600 text-sm ml-1"></i>
-                                    <span class="text-purple-600 text-sm font-medium">پیشرفته</span>
-                                </div>
-                            </div>
-                            <button onclick="showPage('contact')" class="w-full btn-3d text-white py-3 rounded-xl transition-all duration-300 hover:scale-105 flex items-center justify-center">
-                                <i class="fas fa-rocket ml-2"></i>
-                                شروع کنید
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Contact Page -->
-        <div id="contact-page" class="page hidden page-transition">
-            <section class="py-20">
-                <div class="max-w-4xl mx-auto px-4">
-                    <div class="text-center mb-16">
-                        <h1 class="text-5xl font-bold mb-6 text-white text-shadow-3d animate-slide-up">تماس با من</h1>
-                        <p class="text-xl text-white opacity-90 animate-fade-in">برای مشاوره رایگان و کسب اطلاعات بیشتر با من در تماس باشید</p>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 gap-12">
-                        <div class="glass-effect rounded-2xl p-8 animate-slide-up">
-                            <h3 class="text-2xl font-semibold mb-6 text-white">اطلاعات تماس</h3>
-                            <div class="space-y-6">
-                                <div class="flex items-center card-3d p-4 rounded-xl hover:scale-105 transition-all duration-300">
-                                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center ml-4 animate-pulse-glow">
-                                        <i class="fas fa-mobile-alt text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold text-gray-800">تلفن همراه</div>
-                                        <div class="text-gray-600">۱۲-۳۴۵-۶۷۸۹</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center card-3d p-4 rounded-xl hover:scale-105 transition-all duration-300">
-                                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center ml-4 animate-pulse-glow">
-                                        <i class="fas fa-envelope text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold text-gray-800">ایمیل</div>
-                                        <div class="text-gray-600">yourmail@email.com</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center card-3d p-4 rounded-xl hover:scale-105 transition-all duration-300">
-                                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center ml-4 animate-pulse-glow">
-                                        <i class="fas fa-map-marker-alt text-white text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold text-gray-800">آدرس</div>
-                                        <div class="text-gray-600">ایران، تهران، پلاک ۱۲۳</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="glass-effect rounded-2xl p-8 animate-slide-up" style="animation-delay: 0.2s;">
-                            <h3 class="text-2xl font-semibold mb-6 text-white">فرم تماس</h3>
-                            <form id="contact-form" class="space-y-6">
-                                <div>
-                                    <label class="block text-sm font-medium text-white mb-2">نام و نام خانوادگی</label>
-                                    <input type="text" id="name" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-white mb-2">شماره تماس</label>
-                                    <input type="tel" id="phone" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-white mb-2">موضوع</label>
-                                    <select id="subject" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required>
-                                        <option value="">انتخاب کنید</option>
-                                        <option value="private">کلاس خصوصی</option>
-                                        <option value="group">کلاس گروهی</option>
-                                        <option value="konkur">آمادگی کنکور</option>
-                                        <option value="consultation">مشاوره تحصیلی</option>
-                                        <option value="online">کلاس آنلاین</option>
-                                        <option value="other">سایر</option>
-                                    </select>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-white mb-2">پیام</label>
-                                    <textarea id="message" rows="4" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required></textarea>
-                                </div>
-                                
-                                <button type="submit" class="w-full btn-3d text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105">ارسال پیام</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Admin Page -->
-        <div id="admin-page" class="page hidden page-transition">
-            <section class="py-20">
-                <div class="max-w-6xl mx-auto px-4">
-                    <div class="text-center mb-16">
-                        <div class="flex justify-between items-center mb-8">
-                            <div></div>
-                            <div>
-                                <h1 class="text-5xl font-bold mb-2 text-white text-shadow-3d animate-slide-up">پنل مدیریت محتوا</h1>
-                                <p class="text-xl text-white opacity-90 animate-fade-in">مدیریت مطالب وبلاگ و محتوای سایت</p>
-                            </div>
-                            <button onclick="logoutAdmin()" class="glass-effect text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:bg-white/20 flex items-center">
-                                <i class="fas fa-sign-out-alt ml-2"></i>
-                                خروج
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="grid lg:grid-cols-3 gap-8">
-                        <!-- Add New Post Form -->
-                        <div class="lg:col-span-2">
-                            <div class="glass-effect rounded-2xl p-8 animate-slide-up">
-                                <h3 class="text-2xl font-semibold mb-6 text-white">افزودن مطلب جدید</h3>
-                                <form id="new-post-form" class="space-y-6">
-                                    <div>
-                                        <label class="block text-sm font-medium text-white mb-2">عنوان مطلب</label>
-                                        <input type="text" id="post-title" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-white mb-2">دسته‌بندی</label>
-                                        <select id="post-category" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required>
-                                            <option value="">انتخاب کنید</option>
-                                            <option value="math">ریاضی</option>
-                                            <option value="konkur">کنکور</option>
-                                            <option value="tips">نکات مطالعه</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-white mb-2">تصویر مطلب</label>
-                                        <div class="relative">
-                                            <input type="file" id="post-image" accept="image/*" class="hidden" onchange="handleImageUpload(this)">
-                                            <div id="image-upload-area" class="w-full px-4 py-8 glass-effect border-2 border-dashed border-white border-opacity-30 rounded-xl text-center cursor-pointer hover:border-opacity-50 transition-all duration-300" onclick="document.getElementById('post-image').click()">
-                                                <div id="upload-placeholder">
-                                                    <i class="fas fa-cloud-upload-alt text-white text-3xl mb-3"></i>
-                                                    <p class="text-white mb-2">کلیک کنید یا تصویر را بکشید</p>
-                                                    <p class="text-white opacity-75 text-sm">فرمت‌های مجاز: JPG, PNG, GIF</p>
-                                                </div>
-                                                <div id="image-preview" class="hidden">
-                                                    <img id="preview-img" class="max-w-full h-32 object-cover rounded-lg mx-auto mb-3">
-                                                    <p class="text-white text-sm">تصویر انتخاب شده</p>
-                                                    <button type="button" onclick="removeImage()" class="text-red-400 hover:text-red-300 text-sm mt-2 transition-colors duration-300">حذف تصویر</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-white mb-2">خلاصه مطلب</label>
-                                        <textarea id="post-excerpt" rows="3" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required></textarea>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-white mb-2">محتوای مطلب</label>
-                                        <textarea id="post-content" rows="8" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required></textarea>
-                                    </div>
-                                    
-                                    <button type="submit" class="w-full btn-3d text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105">انتشار مطلب</button>
-                                </form>
-                            </div>
-                        </div>
-                        
-                        <!-- Posts Management -->
-                        <div>
-                            <div class="glass-effect rounded-2xl p-8 animate-slide-up" style="animation-delay: 0.2s;">
-                                <h3 class="text-xl font-semibold mb-6 text-white">مدیریت مطالب</h3>
-                                <div id="admin-posts-list" class="space-y-4">
-                                    <!-- Posts will be loaded here -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="glass-effect text-white py-16 mt-20">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="animate-fade-in">
-                    <div class="flex items-center space-x-4 space-x-reverse mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full overflow-hidden animate-pulse-glow border-2 border-white/20">
-                            <img src="assets/profile.png" alt="آروین نفری" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center" style="display: none;">
-                                <i class="fas fa-user text-white text-lg"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-2xl font-bold gradient-text">آروین نفری</h3>
-                    </div>
-                    <p class="text-gray-300">دبیر ریاضی و مشاور کنکور با بیش از ۱۰ سال تجربه</p>
-                </div>
+                <button class="next" aria-label="تصویر بعدی">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
                 
-                <div class="animate-fade-in" style="animation-delay: 0.2s;">
-                    <h4 class="text-lg font-semibold mb-4 text-white">خدمات</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><a href="#" class="hover:text-yellow-300 transition-colors duration-300">کلاس خصوصی</a></li>
-                        <li><a href="#" class="hover:text-yellow-300 transition-colors duration-300">کلاس گروهی</a></li>
-                        <li><a href="#" class="hover:text-yellow-300 transition-colors duration-300">آمادگی کنکور</a></li>
-                        <li><a href="#" class="hover:text-yellow-300 transition-colors duration-300">مشاوره تحصیلی</a></li>
-                    </ul>
-                </div>
-                
-                <div class="animate-fade-in" style="animation-delay: 0.4s;">
-                    <h4 class="text-lg font-semibold mb-4 text-white">لینک‌های مفید</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><a href="#" onclick="showPage('about')" class="hover:text-yellow-300 transition-colors duration-300">درباره من</a></li>
-                        <li><a href="#" onclick="showPage('blog')" class="hover:text-yellow-300 transition-colors duration-300">وبلاگ</a></li>
-                        <li><a href="#" onclick="showPage('contact')" class="hover:text-yellow-300 transition-colors duration-300">تماس</a></li>
-                        <li><a href="#" onclick="showPage('services')" class="hover:text-yellow-300 transition-colors duration-300">خدمات</a></li>
-                        <li><a href="#" onclick="checkAdminAccess()" class="hover:text-yellow-300 transition-colors duration-300">مدیریت</a></li>
-                    </ul>
-                </div>
-                
-                <div class="animate-fade-in" style="animation-delay: 0.6s;">
-                    <h4 class="text-lg font-semibold mb-4 text-white">تماس با ما</h4>
-                    <ul class="space-y-3 text-gray-300">
-                        <li class="flex items-center">
-                            <i class="fas fa-mobile-alt text-blue-400 ml-2"></i>
-                            ۱۲-۳۴۵-۶۷۸۹
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope text-green-400 ml-2"></i>
-                            yourmail@email.com
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-map-marker-alt text-purple-400 ml-2"></i>
-                            ایران، تهران
-                        </li>
-                    </ul>
+                <!-- دات‌های نمایش وضعیت -->
+                <div class="simple-slider-dots">
+                    <span class="simple-slider-dot active" data-slide="0"></span>
+                    <span class="simple-slider-dot" data-slide="1"></span>
                 </div>
             </div>
             
-            <div class="border-t border-white border-opacity-20 mt-12 pt-8 text-center text-gray-300">
-                <p>&copy; ۱۴۰۳ آروین نفری. تمامی حقوق محفوظ است.</p>
+            <!-- متن درباره استاد در سمت راست -->
+            <div class="about-text" data-aos="fade-left">
+                <h3 class="animate-char">استاد رضا زین‌الدینی</h3>
+                
+                <!-- باکس متن درباره استاد (شبیه روش تدریس، ثابت و کم رنگ) -->
+                <div class="teacher-info-box">
+                    <div class="teacher-info-content">
+                        <p>استاد تفسیر و حافظ کل قرآن کریم با بیش از ده سال سابقه تدریس و آموزش. ایشان بنیانگذار روش نوین «حفظ پایه تصویری» می‌باشند که تحولی عظیم در زمینه حفظ قرآن کریم ایجاد کرده است.</p>
+                        <p>با بهره‌گیری از این روش، ده‌ها نفر موفق به حفظ کل قرآن کریم شده‌اند و این مسیر را با لذت و پایداری بیشتری طی کرده‌اند.</p>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="10">0</span>+
+                        <span class="stat-label">سال تجربه</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="50">0</span>+
+                        <span class="stat-label">حافظ پرورش‌یافته</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="100">0</span>+
+                        <span class="stat-label">شاگرد موفق</span>
+                    </div>
+                </div>
+                
+                <!-- Badges -->
+                <div class="badges">
+                    <span class="badge"><i class="fas fa-award"></i> مدرس برتر قرآن</span>
+                    <span class="badge"><i class="fas fa-graduation-cap"></i> حافظ کل قرآن</span>
+                    <!-- <span class="badge"><i class="fas fa-star"></i> روش نوین آموزشی</span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Methods Section -->
+    <section class="methods" id="methods">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>روش تدریس منحصربه‌فرد</h2>
+            </div>
+
+            <div class="method-cards">
+                <div class="method-card" data-aos="flip-left">
+                    <div class="method-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>حفظ پایه تصویری</h3>
+                    <p>در این روش، آیات قرآن با استفاده از تصاویر ذهنی و تداعی‌های معنایی به حافظه بلندمدت منتقل می‌شود
+                        که باعث افزایش ماندگاری و سرعت یادگیری می‌گردد.</p>
+                    <div class="method-wave"></div>
+                </div>
+
+                <div class="method-card" data-aos="flip-up" data-aos-delay="200">
+                    <div class="method-icon">
+                        <i class="fas fa-laptop-house"></i>
+                    </div>
+                    <h3>آموزش آنلاین</h3>
+                    <p>دوره‌ها به صورت کاملاً آنلاین و تعاملی برگزار می‌شود تا علاقه‌مندان از سراسر ایران و جهان بتوانند
+                        در این دوره‌ها شرکت نمایند.</p>
+                    <div class="method-wave"></div>
+                </div>
+
+                <div class="method-card" data-aos="flip-right" data-aos-delay="400">
+                    <div class="method-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>پشتیبانی اختصاصی</h3>
+                    <p>هر شاگرد از پشتیبانی شخصی و رفع اشکال بهره‌مند می‌شود و مسیر حفظ خود را با راهنمایی مستقیم استاد
+                        طی می‌کند.</p>
+                    <div class="method-wave"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>دوره‌های آموزشی</h2>
+                <p class="section-subtitle">انتخاب دوره مناسب برای شروع مسیر حفظ قرآن</p>
+            </div>
+
+            <div class="course-cards">
+                <div class="course-card" data-aos="zoom-in">
+                    <div class="course-badge">پرفروش ترین</div>
+                    <div class="corner-ribbon">
+                        <span>ماهانه</span>
+                        <div class="ribbon-shadow"></div>
+                    </div>
+                    <div class="course-header">
+                        <h3>دوره حفظ کل قرآن کریم</h3>
+                        <p>۱۰۰ جلسه آنلاین</p>
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="course-body">
+                        <p>حفظ کامل قرآن کریم با روش پایه تصویری در ۱۰۰ جلسه آموزشی</p>
+
+                        <ul class="course-features">
+                            <li><i class="fas fa-check-circle"></i> آموزش روش حفظ تصویری</li>
+                            <li><i class="fas fa-check-circle"></i> جلسات هفتگی آنلاین</li>
+                            <li><i class="fas fa-check-circle"></i> پشتیبانی اختصاصی</li>
+                            <li><i class="fas fa-check-circle"></i> منابع آموزشی کامل</li>
+                            <li><i class="fas fa-check-circle"></i> تمرین‌های عملی</li>
+                            <li><i class="fas fa-check-circle"></i> آزمون‌های دوره‌ای</li>
+                        </ul>
+
+                        <div class="course-price">
+                            <span class="price">۲,۰۰۰,۰۰۰ <span class="currency">تومان</span></span>
+                            <span class="price-note">با پرداخت ماهیانه فقط:</span>
+                        </div>
+
+                        <a href="#contact" class="cta-button course-btn">
+                            ثبت‌نام در دوره
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+
+                        <div class="course-enrollment">
+                            <div class="enrollment-progress">
+                                <div class="progress-bar" style="width: 70%"></div>
+                            </div>
+                            <span>۷۰٪ ظرفیت پر شده</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="corner-ribbon">
+                        <span>ماهانه</span>
+                        <div class="ribbon-shadow"></div>
+                    </div>
+                    <div class="course-header">
+                        <h3>دوره روخوانی و روان‌خوانی</h3>
+                        <p>۱۲ جلسه آنلاین</p>
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="course-body">
+                        <p>آموزش اصولی روخوانی و روان‌خوانی قرآن کریم در ۱۲ جلسه</p>
+
+                        <ul class="course-features">
+                            <li><i class="fas fa-check-circle"></i> آموزش روخوانی پایه</li>
+                            <li><i class="fas fa-check-circle"></i> تلفظ صحیح حروف</li>
+                            <li><i class="fas fa-check-circle"></i> قواعد تجوید مقدماتی</li>
+                            <li><i class="fas fa-check-circle"></i> تمرین روان‌خوانی</li>
+                            <li><i class="fas fa-check-circle"></i> پشتیبانی و رفع اشکال</li>
+                            <li><i class="fas fa-check-circle"></i> آمادگی برای حفظ قرآن</li>
+                        </ul>
+
+                        <div class="course-price">
+                            <span class="price">۲,۰۰۰,۰۰۰ <span class="currency">تومان</span></span>
+                            <span class="price-note">با پرداخت ماهیانه فقط:</span>
+                        </div>
+
+                        <a href="#contact" class="cta-button course-btn">
+                            ثبت‌نام در دوره
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+
+                        <div class="course-enrollment">
+                            <div class="enrollment-progress">
+                                <div class="progress-bar" style="width: 70%"></div>
+                            </div>
+                            <span>۷۰٪ ظرفیت پر شده</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Highlights -->
+            <div class="course-highlights" data-aos="fade-up">
+                <div class="highlight-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>گارانتی بازگشت وجه</h4>
+                    <p>در صورت عدم رضایت تا جلسه سوم</p>
+                </div>
+                <div class="highlight-item">
+                    <i class="fas fa-certificate"></i>
+                    <h4>گواهی معتبر</h4>
+                    <p>صدور گواهی پایان دوره معتبر</p>
+                </div>
+                <div class="highlight-item">
+                    <i class="fas fa-clock"></i>
+                    <h4>دسترسی مادام العمر</h4>
+                    <p>دسترسی همیشگی به محتوای دوره</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="testimonial-particles"></div>
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>ویدیوهای شاگردان</h2>
+                <p class="section-subtitle">تجربیات موفق شاگردان دوره‌های حفظ قرآن</p>
+            </div>
+
+            <div class="video-slider-container" data-aos="fade-up">
+                <button class="video-slider-btn prev-video-btn" aria-label="ویدیو قبلی">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <div class="video-slider-wrapper">
+                    <div class="video-slider">
+                        <div class="video-item active">
+                            <div class="video-container">
+                                <!-- Video Preloader -->
+                                <div class="video-preloader">
+                                    <i class="fas fa-quran"></i>
+                                    <div class="loading-text">در حال بارگذاری ویدیو...</div>
+                                </div>
+                                <video controls preload="metadata">
+                                    <source src="videos/student-1.mp4" type="video/mp4" id="videoSource">
+                                    مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+                                </video>
+                                <div class="video-overlay">
+                                    <button class="video-play-btn">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h4 id="currentVideoName">مرتضی محمودی</h4>
+                                <p id="currentVideoDesc">حافظ کل قرآن کریم</p>
+                                <div class="video-stats">
+                                    <span><i class="fas fa-clock"></i> ۶ ماه</span>
+                                    <span><i class="fas fa-graduation-cap"></i> حفظ کامل</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Other video items will be loaded dynamically -->
+                        <div class="video-item"></div>
+                        <div class="video-item"></div>
+                        <div class="video-item"></div>
+                        <div class="video-item"></div>
+                    </div>
+                </div>
+
+                <button class="video-slider-btn next-video-btn" aria-label="ویدیو بعدی">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+            <div class="video-dots">
+                <span class="video-dot active" data-video="0" data-src="videos/student-1.mp4" data-name="مرتضی محمودی"
+                    data-desc="حافظ کل قرآن کریم"></span>
+                <span class="video-dot" data-video="1" data-src="videos/student-2.mp4" data-name="خانم کریمی"
+                    data-desc="حافظ کل قرآن کریم"></span>
+                <span class="video-dot" data-video="2" data-src="videos/student-3.mp4" data-name="علی عابدین نسب"
+                    data-desc="حافظ ۳ جزء از قرآن کریم"></span>
+                <span class="video-dot" data-video="3" data-src="videos/student-4.mp4" data-name="پویا متین"
+                    data-desc="حافظ چند جزء از قرآن کریم"></span>
+                <span class="video-dot" data-video="4" data-src="videos/student-5.mp4" data-name="امیرعلی احمدزاده"
+                    data-desc="حافظ ۱۹ جزء از قرآن کریم"></span>
+                <span class="video-dot" data-video="5" data-src="videos/student-6.mp4" data-name="خانم اسماعیلی نژاد"
+                    data-desc="دانشجو تفسیر قرآن کریم"></span>
+                <span class="video-dot" data-video="6" data-src="videos/student-7.mp4" data-name="دکتر علیرضا فریدی"
+                    data-desc="حافظ ۲ جزء از قرآن کریم"></span>
+                <span class="video-dot" data-video="7" data-src="videos/student-8.mp4" data-name="بهنام رستمی"
+                    data-desc="حافظ ۱۲ جزء از قرآن کریم"></span>
+                <span class="video-dot" data-video="8" data-src="videos/student-9.mp4" data-name="همت حیدری"
+                    data-desc="حافظ ۶ جزء از قرآن کریم"></span>
+                <span class="video-dot" data-video="9" data-src="videos/student-10.mp4" data-name="جواد سماوی"
+                    data-desc="حافظ ۲ جزء از قرآن کریم"></span>
+                <span class="video-dot" data-video="10" data-src="videos/student-11.mp4" data-name="امیرعلی زارع نژاد"
+                    data-desc="شاگرد روخوانی و روانخوانی"></span>
+                <span class="video-dot" data-video="11" data-src="videos/student-12.mp4" data-name="بهنام رستمی"
+                    data-desc="حافظ ۱۲ جزء از قرآن کریم"></span>
+                <span class="video-dot" data-video="12" data-src="videos/student-13.mp4" data-name="مجتبی شمس"
+                    data-desc="حافظ ۲ جزء از قرآن کریم"></span>
+                <span class="video-dot" data-video="13" data-src="videos/student-14.mp4" data-name="مهدی اکبری"
+                    data-desc="حافظ کل قرآن کریم"></span>
+                <span class="video-dot" data-video="14" data-src="videos/student-15.mp4" data-name="ناصر امامی"
+                    data-desc="حافظ ۶ جزء از قرآن کریم"></span>
+            </div>
+
+            <!-- Testimonial Stats -->
+            <div class="testimonial-stats" data-aos="fade-up">
+                <div class="testimonial-stat">
+                    <span class="stat-number">۹۸٪</span>
+                    <span class="stat-label">رضایت‌مندی</span>
+                </div>
+                <div class="testimonial-stat">
+                    <span class="stat-number">۱۵۰+</span>
+                    <span class="stat-label">توصیه‌نامه</span>
+                </div>
+                <div class="testimonial-stat">
+                    <span class="stat-number">۴.۹</span>
+                    <span class="stat-label">امتیاز</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>سوالات متداول</h2>
+                <p class="section-subtitle">پاسخ به رایج‌ترین سوالات شما</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item" data-aos="fade-up">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>آیا دوره‌ها کاملاً آنلاین برگزار می‌شود؟</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>بله، تمامی دوره‌ها به صورت کاملاً آنلاین و از طریق پلتفرم‌های آموزشی معتبر برگزار می‌شود.
+                            جلسات ضبط شده نیز در اختیار دانش‌پذیران قرار می‌گیرد تا امکان مرور داشته باشند.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>آیا برای شرکت در دوره‌ها نیاز به پیش‌زمینه خاصی دارم؟</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>خیر، دوره روخوانی و روان‌خوانی مخصوص افراد مبتدی طراحی شده است. پس از اتمام این دوره،
+                            می‌توانید وارد دوره حفظ پایه تصویری شوید.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>روش حفظ پایه تصویری چه تفاوتی با روش‌های سنتی دارد؟</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>این روش با استفاده از تصویرسازی ذهنی، نقشه‌های مفهومی و تداعی‌های معنایی، باعث تثبیت آیات در
+                            حافظه بلندمدت می‌شود. سرعت یادگیری در این روش ۳ برابر بیشتر و ماندگاری آن بسیار بالاتر است.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>چقدر زمان لازم است تا حفظ کل قرآن را کامل کنم؟</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>دوره حفظ پایه تصویری در ۱۰۰ جلسه طراحی شده است. با توجه به زمان‌بندی هفتگی و تمرین منظم،
+                            می‌توانید در مدت ۱۸ تا ۲۴ ماه حفظ کل قرآن را به پایان برسانید.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ CTA -->
+            <div class="faq-cta" data-aos="fade-up">
+                <p>سوال دیگری دارید؟</p>
+                <a href="#contact" class="cta-button secondary">
+                    <i class="fas fa-question-circle"></i>
+                    بپرسید
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>راه‌های ارتباطی</h2>
+                <p class="section-subtitle">همین حالا مشاوره رایگان دریافت کنید</p>
+            </div>
+
+            <div class="contact-info-box" data-aos="zoom-in">
+                <div class="contact-header">
+                    <h3>با ما در ارتباط باشید</h3>
+                    <div class="contact-badge">
+                        <i class="fas fa-bolt"></i>
+                        پاسخگویی سریع
+                    </div>
+                </div>
+
+                <div class="contact-methods">
+                    <div class="contact-method" data-aos="fade-up">
+                        <div class="contact-icon-wrapper">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>تلفن تماس</h4>
+                        <p class="contact-detail">۰۹۱۲۴۶۶۲۵۶۸</p>
+                        <p class="contact-note">از ساعت ۹ صبح تا ۹ شب پاسخگوی شما هستیم</p>
+                        <a href="tel:+989124662568" class="contact-action">
+                            <i class="fas fa-phone"></i>
+                            تماس بگیرید
+                        </a>
+                    </div>
+
+                    <div class="contact-method" data-aos="fade-up" data-aos-delay="100">
+                        <div class="contact-icon-wrapper">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h4>واتساپ</h4>
+                        <p class="contact-detail">۰۹۳۰۴۶۶۲۸۶۸</p>
+                        <p class="contact-note">پاسخگویی سریع از طریق واتساپ</p>
+                        <a href="https://wa.me/989304662868" class="contact-action" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            ارسال پیام
+                        </a>
+                    </div>
+
+                    <div class="contact-method" data-aos="fade-up" data-aos-delay="200">
+                        <div class="contact-icon-wrapper">
+                            <img src="images/eitaa-logo.png" alt="ایتا" class="contact-icon">
+                        </div>
+                        <h4>ایتا</h4>
+                        <p class="contact-detail">@zeinoddin42</p>
+                        <p class="contact-note">کانال اطلاع‌رسانی دوره‌ها</p>
+                        <a href="https://eitaa.com/zeinoddin42" class="contact-action" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            مشاهده کانال
+                        </a>
+                    </div>
+
+                    <div class="contact-method" data-aos="fade-up" data-aos-delay="300">
+                        <div class="contact-icon-wrapper">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h4>مشاوره رایگان</h4>
+                        <p class="contact-detail">رزرو جلسه مشاوره</p>
+                        <p class="contact-note">مشاوره تخصصی و تعیین سطح رایگان</p>
+                        <a href="#contact-form" class="contact-action">
+                            <i class="fas fa-calendar-alt"></i>
+                            رزرو مشاوره
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact Form
+                <div class="contact-form-container" id="contact-form" data-aos="fade-up">
+                    <h4>فرم درخواست مشاوره</h4>
+                    <form id="consultationForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="نام و نام خانوادگی" required>
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="شماره تماس" required>
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="">انتخاب دوره مورد نظر</option>
+                                <option value="full">حفظ کل قرآن</option>
+                                <option value="reading">روخوانی و روان‌خوانی</option>
+                                <option value="consultation">مشاوره</option>
+                            </select>
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <button type="submit" class="cta-button">
+                            <i class="fas fa-paper-plane"></i>
+                            ارسال درخواست
+                        </button>
+                    </form>
+                </div> -->
+
+                <div class="social-links">
+                    <a href="https://wa.me/989304662868" class="social-link" title="واتساپ" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://eitaa.com/zeinoddin42" class="social-link" title="ایتا" target="_blank">
+                        <img src="images/eitaa-logo-white.png" alt="ایتا" class="social-icon">
+                    </a>
+                    <a href="tel:+989124662568" class="social-link" title="تماس تلفنی">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                    <!-- <a href="mailto:info@zeinoddini.ir" class="social-link" title="ایمیل">
+                        <i class="fas fa-envelope"></i>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo" data-aos="fade-up">
+                    <h3>استاد رضا زین‌الدینی</h3>
+                    <p style="margin-top: 15px; color: #ddd;">حفظ کل قرآن کریم با روش نوین تصویری در ۱۰۰ جلسه</p>
+                    <div style="margin-top: 20px; font-size: 1.6rem; color: var(--secondary-color);" class="quran-font">
+                        ﴿إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ﴾
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="newsletter" data-aos="fade-up" data-aos-delay="100">
+                        <h4>عضویت در خبرنامه</h4>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="ایمیل خود را وارد کنید">
+                            <button type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="footer-links" data-aos="fade-up" data-aos-delay="200">
+                    <h4>دسترسی سریع</h4>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-home"></i> صفحه اصلی</a></li>
+                        <li><a href="#about"><i class="fas fa-user"></i> درباره استاد</a></li>
+                        <li><a href="#methods"><i class="fas fa-chalkboard-teacher"></i> روش تدریس</a></li>
+                        <li><a href="#courses"><i class="fas fa-graduation-cap"></i> دوره‌های آموزشی</a></li>
+                        <li><a href="#faq"><i class="fas fa-question-circle"></i> سوالات متداول</a></li>
+                        <li><a href="#contact"><i class="fas fa-phone"></i> ارتباط با ما</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links" data-aos="fade-up" data-aos-delay="300">
+                    <h4>دوره‌های آموزشی</h4>
+                    <ul>
+                        <li><a href="#courses"><i class="fas fa-book-quran"></i> حفظ کل قرآن (۱۰۰ جلسه)</a></li>
+                        <li><a href="#courses"><i class="fas fa-book-reader"></i> روخوانی و روان‌خوانی (۱۲ جلسه)</a>
+                        </li>
+                        <li><a href="#courses"><i class="fas fa-microphone-alt"></i> تلاوت و تجوید پیشرفته</a></li>
+                        <li><a href="#courses"><i class="fas fa-brain"></i> حفظ موضوعی قرآن</a></li>
+                    </ul>
+
+                    <!-- Trust Badges -->
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>امنیت پرداخت</span>
+                        </div>
+                        <div class="trust-badge">
+                            <i class="fas fa-certificate"></i>
+                            <span>گواهی معتبر</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright" data-aos="fade-up">
+                <p>© کلیه حقوق این وبسایت متعلق به استاد رضا زین‌الدینی می‌باشد. ۱۴۰۴</p>
+                <div class="footer-stats">
+                    <span><i class="fas fa-users"></i> ۱۰۰+ دانشجو</span>
+                    <span><i class="fas fa-chart-line"></i> ۹۸٪ رضایت</span>
+                    <span><i class="fas fa-clock"></i> ۱۰+ سال تجربه</span>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop" aria-label="بازگشت به بالا">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Scroll progress indicator -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Initialize AOS -->
     <script>
-        // Local Storage Management
-        class BlogStorage {
-            static save(posts) {
-                localStorage.setItem('arvin-blog-posts', JSON.stringify(posts));
-            }
-            
-            static load() {
-                const saved = localStorage.getItem('arvin-blog-posts');
-                return saved ? JSON.parse(saved) : this.getDefaultPosts();
-            }
-            
-            static getDefaultPosts() {
-                return [];
-            }
-        }
-
-        // Initialize blog posts
-        let blogPosts = BlogStorage.load();
-
-        // Navigation functions
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.add('hidden');
-            });
-            
-            // Show selected page with animation
-            const targetPage = document.getElementById(pageId + '-page');
-            targetPage.classList.remove('hidden');
-            targetPage.classList.add('page-transition');
-            
-            // Load page-specific content
-            if (pageId === 'blog') {
-                loadBlogPosts();
-            } else if (pageId === 'admin') {
-                loadAdminPosts();
-            } else if (pageId === 'home') {
-                loadLatestPosts();
-            }
-            
-            // Hide mobile menu
-            document.getElementById('mobile-menu').classList.add('hidden');
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showSinglePost(postId) {
-            const post = blogPosts.find(p => p.id === postId);
-            if (!post) return;
-            
-            // Increase view count
-            post.views = (post.views || 0) + 1;
-            BlogStorage.save(blogPosts);
-            
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.add('hidden');
-            });
-            
-            // Show single post page
-            const singlePostPage = document.getElementById('single-post-page');
-            singlePostPage.classList.remove('hidden');
-            singlePostPage.classList.add('page-transition');
-            
-            // Load post content
-            const contentContainer = document.getElementById('single-post-content');
-            contentContainer.innerHTML = `
-                <div class="animate-fade-in">
-                    <div class="flex items-center justify-between mb-8">
-                        <span class="px-4 py-2 text-sm font-medium rounded-full ${getCategoryColor(post.category)}">${getCategoryName(post.category)}</span>
-                        <span class="text-white opacity-75">${post.date}</span>
-                    </div>
-                    <h1 class="text-4xl font-bold mb-6 text-white text-shadow-3d">${post.title}</h1>
-                    <div class="flex items-center mb-8 text-white opacity-75">
-                        <span class="ml-4">⏱️ ${post.readTime}</span>
-                        <span>👁️ ${post.views || 0} بازدید</span>
-                    </div>
-                    ${post.image ? `
-                        <div class="relative mb-8 rounded-2xl overflow-hidden">
-                            <img src="${post.image}" alt="${post.title}" class="w-full h-64 md:h-80 object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        </div>
-                    ` : ''}
-                    <div class="prose prose-lg max-w-none text-white leading-relaxed">
-                        ${post.content.split('\n').map(paragraph => 
-                            paragraph.trim() ? `<p class="mb-4">${paragraph}</p>` : ''
-                        ).join('')}
-                    </div>
-                    <div class="mt-12 pt-8 border-t border-white border-opacity-20">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-4 space-x-reverse">
-                                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                    <span class="text-white font-bold">آ</span>
-                                </div>
-                                <div>
-                                    <div class="font-semibold text-white">آروین نفری</div>
-                                    <div class="text-sm text-white opacity-75">دبیر ریاضی و مشاور کنکور</div>
-                                </div>
-                            </div>
-                            <div class="flex space-x-2 space-x-reverse">
-                                <button onclick="sharePost(${post.id})" class="btn-3d text-white px-4 py-2 rounded-lg text-sm hover:scale-105 transition-all duration-300">اشتراک‌گذاری</button>
-                                <button onclick="likePost(${post.id})" class="btn-3d text-white px-4 py-2 rounded-lg text-sm hover:scale-105 transition-all duration-300">👍 پسندیدن</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        }
-
-        // Blog functions
-        function loadBlogPosts(category = 'all') {
-            const blogContainer = document.getElementById('blog-posts');
-            let filteredPosts = category === 'all' ? blogPosts : blogPosts.filter(post => post.category === category);
-            
-            if (filteredPosts.length === 0) {
-                blogContainer.innerHTML = `
-                    <div class="col-span-full text-center py-20">
-                        <div class="glass-effect rounded-2xl p-12 animate-bounce-in">
-                            <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center">
-                                <i class="fas fa-pen-alt text-white text-3xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-semibold text-white mb-4">هنوز مطلبی منتشر نشده</h3>
-                            <p class="text-white opacity-75 mb-8">اولین نفری باشید که مطلب جدید می‌نویسد!</p>
-                            <button onclick="checkAdminAccess()" class="btn-3d text-white px-8 py-3 rounded-xl font-medium hover:scale-105 transition-all duration-300 flex items-center justify-center mx-auto">
-                                <i class="fas fa-plus ml-2"></i>
-                                نوشتن مطلب جدید
-                            </button>
-                        </div>
-                    </div>
-                `;
-                return;
-            }
-            
-            blogContainer.innerHTML = filteredPosts.map((post, index) => `
-                <article class="blog-card rounded-2xl overflow-hidden shadow-lg animate-bounce-in" style="animation-delay: ${index * 0.1}s;">
-                    ${post.image ? `
-                        <div class="relative h-48 overflow-hidden">
-                            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        </div>
-                    ` : ''}
-                    <div class="p-8">
-                        <div class="flex items-center justify-between mb-6">
-                            <span class="px-4 py-2 text-sm font-medium rounded-full ${getCategoryColor(post.category)}">${getCategoryName(post.category)}</span>
-                            <span class="text-gray-500">${post.date}</span>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-4 text-gray-800 hover:text-blue-600 transition-colors duration-300">${post.title}</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">${post.excerpt}</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-500 flex items-center">
-                                <span class="ml-2">⏱️</span>
-                                ${post.readTime}
-                            </span>
-                            <button onclick="showSinglePost(${post.id})" class="btn-3d text-white px-6 py-2 rounded-lg font-medium hover:scale-105 transition-all duration-300">ادامه مطلب →</button>
-                        </div>
-                    </div>
-                </article>
-            `).join('');
-        }
-
-        function loadLatestPosts() {
-            const latestContainer = document.getElementById('latest-posts');
-            const latest = blogPosts.slice(0, 3);
-            
-            if (latest.length === 0) {
-                latestContainer.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <div class="glass-effect rounded-2xl p-8 animate-bounce-in">
-                            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                <i class="fas fa-newspaper text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold text-white mb-3">هنوز مطلبی منتشر نشده</h3>
-                            <p class="text-white opacity-75 mb-6">برای مشاهده مطالب جدید منتظر بمانید</p>
-                            <button onclick="checkAdminAccess()" class="btn-3d text-white px-6 py-2 rounded-xl font-medium hover:scale-105 transition-all duration-300 flex items-center justify-center mx-auto">
-                                <i class="fas fa-edit ml-2"></i>
-                                نوشتن مطلب
-                            </button>
-                        </div>
-                    </div>
-                `;
-                return;
-            }
-            
-            latestContainer.innerHTML = latest.map((post, index) => `
-                <article class="blog-card rounded-2xl overflow-hidden shadow-lg animate-bounce-in" style="animation-delay: ${index * 0.1}s;">
-                    ${post.image ? `
-                        <div class="relative h-40 overflow-hidden">
-                            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        </div>
-                    ` : ''}
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(post.category)}">${getCategoryName(post.category)}</span>
-                            <span class="text-sm text-gray-500">${post.date}</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3 text-gray-800 hover:text-blue-600 transition-colors duration-300">${post.title}</h3>
-                        <p class="text-gray-600 mb-4 leading-relaxed">${post.excerpt}</p>
-                        <button onclick="showSinglePost(${post.id})" class="btn-3d text-white px-4 py-2 rounded-lg font-medium hover:scale-105 transition-all duration-300">ادامه مطلب →</button>
-                    </div>
-                </article>
-            `).join('');
-        }
-
-        function filterPosts(category) {
-            // Update filter buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('btn-3d');
-                btn.classList.add('glass-effect');
-            });
-            event.target.classList.remove('glass-effect');
-            event.target.classList.add('btn-3d');
-            
-            loadBlogPosts(category);
-        }
-
-        function sharePost(postId) {
-            const post = blogPosts.find(p => p.id === postId);
-            if (post) {
-                if (navigator.share) {
-                    navigator.share({
-                        title: post.title,
-                        text: post.excerpt,
-                        url: window.location.href
-                    });
-                } else {
-                    // Fallback for browsers that don't support Web Share API
-                    const shareText = `${post.title}\n\n${post.excerpt}\n\n${window.location.href}`;
-                    navigator.clipboard.writeText(shareText).then(() => {
-                        showNotification('لینک مطلب کپی شد!', 'success');
-                    });
-                }
-            }
-        }
-
-        function likePost(postId) {
-            showNotification('از پسندیدن شما متشکریم! ❤️', 'success');
-        }
-
-        function getCategoryColor(category) {
-            const colors = {
-                'math': 'bg-blue-100 text-blue-800',
-                'konkur': 'bg-green-100 text-green-800',
-                'tips': 'bg-purple-100 text-purple-800'
-            };
-            return colors[category] || 'bg-gray-100 text-gray-800';
-        }
-
-        function getCategoryName(category) {
-            const names = {
-                'math': 'ریاضی',
-                'konkur': 'کنکور',
-                'tips': 'نکات مطالعه'
-            };
-            return names[category] || 'عمومی';
-        }
-
-        // Authentication System
-        class AuthSystem {
-            static credentials = {
-                username: 'arvin',
-                password: '1234'
-            };
-            
-            static login(username, password) {
-                if (username === this.credentials.username && password === this.credentials.password) {
-                    localStorage.setItem('arvin-admin-session', JSON.stringify({
-                        loggedIn: true,
-                        timestamp: Date.now()
-                    }));
-                    return true;
-                }
-                return false;
-            }
-            
-            static logout() {
-                localStorage.removeItem('arvin-admin-session');
-            }
-            
-            static isLoggedIn() {
-                const session = localStorage.getItem('arvin-admin-session');
-                if (!session) return false;
-                
-                const sessionData = JSON.parse(session);
-                const now = Date.now();
-                const sessionAge = now - sessionData.timestamp;
-                const maxAge = 24 * 60 * 60 * 1000; // 24 hours
-                
-                if (sessionAge > maxAge) {
-                    this.logout();
-                    return false;
-                }
-                
-                return sessionData.loggedIn;
-            }
-        }
-
-        function checkAdminAccess() {
-            if (AuthSystem.isLoggedIn()) {
-                showPage('admin');
-            } else {
-                showLoginPage();
-            }
-        }
-
-        function showLoginPage() {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.add('hidden');
-            });
-            
-            // Create and show login page
-            const loginPage = document.createElement('div');
-            loginPage.id = 'login-page';
-            loginPage.className = 'page page-transition';
-            loginPage.innerHTML = `
-                <section class="py-20 min-h-screen flex items-center justify-center">
-                    <div class="max-w-md mx-auto px-4 w-full">
-                        <div class="glass-effect rounded-2xl p-8 animate-bounce-in">
-                            <div class="text-center mb-8">
-                                <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center animate-pulse-glow">
-                                    <i class="fas fa-lock text-white text-2xl"></i>
-                                </div>
-                                <h2 class="text-3xl font-bold text-white mb-2">ورود به پنل مدیریت</h2>
-                                <p class="text-white opacity-75">لطفاً اطلاعات ورود خود را وارد کنید</p>
-                            </div>
-                            
-                            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-info-circle text-blue-600 ml-2"></i>
-                                    <span class="text-blue-800 font-medium text-sm">اطلاعات ورود پیش‌فرض:</span>
-                                </div>
-                                <div class="text-blue-700 text-sm">
-                                    <div>نام کاربری: <code class="bg-blue-100 px-2 py-1 rounded">arvin</code></div>
-                                    <div class="mt-1">رمز عبور: <code class="bg-blue-100 px-2 py-1 rounded">1234</code></div>
-                                </div>
-                            </div>
-
-                            <form id="login-form" class="space-y-6">
-                                <div>
-                                    <label class="block text-sm font-medium text-white mb-2">نام کاربری</label>
-                                    <input type="text" id="username" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-white mb-2">رمز عبور</label>
-                                    <input type="password" id="password" class="w-full px-4 py-3 glass-effect border border-white border-opacity-30 rounded-xl text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required>
-                                </div>
-                                
-                                <div id="login-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl text-sm"></div>
-                                
-                                <button type="submit" id="login-btn" class="w-full btn-3d text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105">
-                                    ورود به پنل
-                                </button>
-                                
-                                <button type="button" onclick="showPage('home')" class="w-full glass-effect text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-white/20">
-                                    بازگشت به صفحه اصلی
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-            `;
-            
-            // Remove existing login page if exists
-            const existingLogin = document.getElementById('login-page');
-            if (existingLogin) {
-                existingLogin.remove();
-            }
-            
-            // Add to main content
-            document.getElementById('main-content').appendChild(loginPage);
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function logoutAdmin() {
-            if (confirm('آیا از خروج از پنل مدیریت اطمینان دارید؟')) {
-                AuthSystem.logout();
-                showNotification('با موفقیت خارج شدید', 'success');
-                showPage('home');
-            }
-        }
-
-        // Admin functions
-        function loadAdminPosts() {
-            const adminContainer = document.getElementById('admin-posts-list');
-            
-            if (blogPosts.length === 0) {
-                adminContainer.innerHTML = `
-                    <div class="text-center py-8">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-3 flex items-center justify-center">
-                            <i class="fas fa-file-alt text-white text-lg"></i>
-                        </div>
-                        <p class="text-white opacity-75 text-sm">هنوز مطلبی ندارید</p>
-                        <p class="text-white opacity-60 text-xs mt-2">اولین مطلب خود را بنویسید</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            adminContainer.innerHTML = blogPosts.map((post, index) => `
-                <div class="card-3d border border-white border-opacity-20 rounded-xl p-4 animate-slide-up" style="animation-delay: ${index * 0.1}s;">
-                    <h4 class="font-semibold text-white mb-2">${post.title}</h4>
-                    <p class="text-sm text-gray-300 mb-3">${post.excerpt.substring(0, 100)}...</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs text-gray-400">${post.date}</span>
-                        <div class="space-x-2 space-x-reverse">
-                            <button onclick="editPost(${post.id})" class="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-300">ویرایش</button>
-                            <button onclick="deletePost(${post.id})" class="text-red-400 hover:text-red-300 text-sm transition-colors duration-300">حذف</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function editPost(postId) {
-            const post = blogPosts.find(p => p.id === postId);
-            if (post) {
-                document.getElementById('post-title').value = post.title;
-                document.getElementById('post-category').value = post.category;
-                document.getElementById('post-excerpt').value = post.excerpt;
-                document.getElementById('post-content').value = post.content;
-                
-                // Handle existing image
-                if (post.image) {
-                    const placeholder = document.getElementById('upload-placeholder');
-                    const preview = document.getElementById('image-preview');
-                    const previewImg = document.getElementById('preview-img');
-                    
-                    placeholder.classList.add('hidden');
-                    preview.classList.remove('hidden');
-                    previewImg.src = post.image;
-                } else {
-                    removeImage();
-                }
-                
-                // Change form to edit mode
-                const form = document.getElementById('new-post-form');
-                form.setAttribute('data-edit-id', postId);
-                form.querySelector('button[type="submit"]').textContent = 'بروزرسانی مطلب';
-                
-                // Scroll to form
-                form.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function deletePost(postId) {
-            if (confirm('آیا از حذف این مطلب اطمینان دارید؟')) {
-                blogPosts = blogPosts.filter(p => p.id !== postId);
-                BlogStorage.save(blogPosts);
-                loadAdminPosts();
-                showNotification('مطلب با موفقیت حذف شد!', 'success');
-            }
-        }
-
-        // Notification system
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-xl text-white font-medium animate-bounce-in ${
-                type === 'success' ? 'bg-green-500' : 
-                type === 'error' ? 'bg-red-500' : 'bg-blue-500'
-            }`;
-            notification.textContent = message;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'fadeOut 0.5s ease-out forwards';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 500);
-            }, 3000);
-        }
-
-        // Image handling functions
-        function handleImageUpload(input) {
-            const file = input.files[0];
-            if (file) {
-                // Check file size (max 5MB)
-                if (file.size > 5 * 1024 * 1024) {
-                    showNotification('حجم فایل نباید بیشتر از ۵ مگابایت باشد', 'error');
-                    input.value = '';
-                    return;
-                }
-                
-                // Check file type
-                if (!file.type.startsWith('image/')) {
-                    showNotification('لطفاً فقط فایل تصویری انتخاب کنید', 'error');
-                    input.value = '';
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const placeholder = document.getElementById('upload-placeholder');
-                    const preview = document.getElementById('image-preview');
-                    const previewImg = document.getElementById('preview-img');
-                    
-                    placeholder.classList.add('hidden');
-                    preview.classList.remove('hidden');
-                    previewImg.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-        
-        function removeImage() {
-            const input = document.getElementById('post-image');
-            const placeholder = document.getElementById('upload-placeholder');
-            const preview = document.getElementById('image-preview');
-            
-            input.value = '';
-            placeholder.classList.remove('hidden');
-            preview.classList.add('hidden');
-        }
-        
-        // Drag and drop functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const uploadArea = document.getElementById('image-upload-area');
-            
-            if (uploadArea) {
-                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                    uploadArea.addEventListener(eventName, preventDefaults, false);
-                });
-                
-                function preventDefaults(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                
-                ['dragenter', 'dragover'].forEach(eventName => {
-                    uploadArea.addEventListener(eventName, highlight, false);
-                });
-                
-                ['dragleave', 'drop'].forEach(eventName => {
-                    uploadArea.addEventListener(eventName, unhighlight, false);
-                });
-                
-                function highlight(e) {
-                    uploadArea.classList.add('border-blue-400', 'bg-blue-50', 'bg-opacity-10');
-                }
-                
-                function unhighlight(e) {
-                    uploadArea.classList.remove('border-blue-400', 'bg-blue-50', 'bg-opacity-10');
-                }
-                
-                uploadArea.addEventListener('drop', handleDrop, false);
-                
-                function handleDrop(e) {
-                    const dt = e.dataTransfer;
-                    const files = dt.files;
-                    
-                    if (files.length > 0) {
-                        const input = document.getElementById('post-image');
-                        input.files = files;
-                        handleImageUpload(input);
-                    }
-                }
-            }
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
         });
-
-        // Form handlers
-        document.addEventListener('submit', function(e) {
-            if (e.target.id === 'login-form') {
-                e.preventDefault();
-                
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const loginBtn = document.getElementById('login-btn');
-                const errorDiv = document.getElementById('login-error');
-                
-                // Show loading
-                const originalText = loginBtn.textContent;
-                loginBtn.innerHTML = '<div class="loading-spinner mx-auto"></div>';
-                loginBtn.disabled = true;
-                
-                // Hide previous errors
-                errorDiv.classList.add('hidden');
-                
-                // Simulate login delay
-                setTimeout(() => {
-                    if (AuthSystem.login(username, password)) {
-                        showNotification('با موفقیت وارد شدید! خوش آمدید 🎉', 'success');
-                        showPage('admin');
-                        e.target.reset();
-                    } else {
-                        errorDiv.textContent = 'نام کاربری یا رمز عبور اشتباه است. لطفاً دوباره تلاش کنید.';
-                        errorDiv.classList.remove('hidden');
-                        
-                        // Shake animation for error
-                        const form = e.target;
-                        form.style.animation = 'shake 0.5s ease-in-out';
-                        setTimeout(() => {
-                            form.style.animation = '';
-                        }, 500);
-                    }
-                    
-                    // Reset button
-                    loginBtn.textContent = originalText;
-                    loginBtn.disabled = false;
-                }, 1500);
-            }
-        });
-
-        document.addEventListener('submit', function(e) {
-            if (e.target.id === 'new-post-form') {
-                e.preventDefault();
-                
-                const title = document.getElementById('post-title').value;
-                const category = document.getElementById('post-category').value;
-                const excerpt = document.getElementById('post-excerpt').value;
-                const content = document.getElementById('post-content').value;
-                const imageInput = document.getElementById('post-image');
-                const editId = e.target.getAttribute('data-edit-id');
-                
-                // Get image data
-                let imageData = null;
-                if (imageInput.files && imageInput.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        imageData = e.target.result;
-                        savePost();
-                    };
-                    reader.readAsDataURL(imageInput.files[0]);
-                    return; // Wait for image to load
-                } else if (editId) {
-                    // Keep existing image for edit
-                    const existingPost = blogPosts.find(p => p.id == editId);
-                    imageData = existingPost ? existingPost.image : null;
-                }
-                
-                savePost();
-                
-                function savePost() {
-                    if (editId) {
-                        // Update existing post
-                        const postIndex = blogPosts.findIndex(p => p.id == editId);
-                        if (postIndex !== -1) {
-                            blogPosts[postIndex] = {
-                                ...blogPosts[postIndex],
-                                title,
-                                category,
-                                excerpt,
-                                content,
-                                image: imageData || blogPosts[postIndex].image
-                            };
-                        }
-                        e.target.removeAttribute('data-edit-id');
-                        e.target.querySelector('button[type="submit"]').textContent = 'انتشار مطلب';
-                        showNotification('مطلب با موفقیت بروزرسانی شد!', 'success');
-                    } else {
-                        // Add new post
-                        const newPost = {
-                            id: Date.now(),
-                            title,
-                            category,
-                            excerpt,
-                            content,
-                            image: imageData,
-                            date: new Date().toLocaleDateString('fa-IR'),
-                            readTime: Math.ceil(content.length / 200) + ' دقیقه',
-                            views: 0,
-                            createdAt: Date.now()
-                        };
-                        blogPosts.unshift(newPost);
-                        showNotification('مطلب جدید با موفقیت منتشر شد!', 'success');
-                    }
-                    
-                    // Save to localStorage
-                    BlogStorage.save(blogPosts);
-                    
-                    // Reset form and image preview
-                    e.target.reset();
-                    removeImage();
-                    loadAdminPosts();
-                }
-            }
-        });
-
-        document.addEventListener('submit', function(e) {
-            if (e.target.id === 'contact-form') {
-                e.preventDefault();
-                
-                const name = document.getElementById('name').value;
-                const phone = document.getElementById('phone').value;
-                const subject = document.getElementById('subject').value;
-                const message = document.getElementById('message').value;
-                
-                // Show loading
-                const submitBtn = e.target.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                submitBtn.innerHTML = '<div class="loading-spinner mx-auto"></div>';
-                submitBtn.disabled = true;
-                
-                // Simulate form submission
-                setTimeout(() => {
-                    showNotification(`پیام شما با موفقیت ارسال شد!\n\nنام: ${name}\nتلفن: ${phone}\nموضوع: ${subject}\n\nبه زودی با شما تماس خواهیم گرفت.`, 'success');
-                    
-                    // Reset form and button
-                    e.target.reset();
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }, 2000);
-            }
-        });
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            showPage('home');
-            
-            // Add some entrance animations
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-
-        // Add CSS for fadeOut animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOut {
-                from { opacity: 1; transform: translateY(0); }
-                to { opacity: 0; transform: translateY(-20px); }
-            }
-            
-            body {
-                opacity: 0;
-                transition: opacity 0.5s ease-in;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9743c1803000cf58',t:'MTc1NjA0ODAxMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
+
 </html>
